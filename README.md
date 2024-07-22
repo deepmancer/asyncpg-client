@@ -14,7 +14,7 @@
 To install `asyncpg-client`, use pip:
 
 ```sh
-pip install git+https://github.com/alirezaheidari-cs/asyncpg_client.git
+pip install git+https://github.com/alirezaheidari-cs/asyncpg-client.git
 ```
 # Usage
 
