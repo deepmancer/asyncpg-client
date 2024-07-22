@@ -35,6 +35,7 @@ class AsyncPostgres:
 
     @staticmethod
     async def create(
+        config: Optional[PostgresConfig] = None,
         url: Optional[str] = None,
         host: Optional[str] = None,
         user: Optional[str] = None,
@@ -45,17 +46,18 @@ class AsyncPostgres:
         expire_on_commit: bool = False,
         **kwargs,
     ) -> 'AsyncPostgres':
-        config = PostgresConfig(
-            host=host,
-            port=port,
-            user=user,
-            password=password,
-            database=database,
-            url=url,
-            enable_db_echo_log=echo,
-            enable_db_expire_on_commit=expire_on_commit,
-            **kwargs
-        )
+        if config is None:
+            config = PostgresConfig(
+                host=host,
+                port=port,
+                user=user,
+                password=password,
+                database=database,
+                url=url,
+                enable_db_echo_log=echo,
+                enable_db_expire_on_commit=expire_on_commit,
+                **kwargs
+            )
         pg_client = AsyncPostgres(config)
         await pg_client.connect()
         return pg_client
