@@ -29,6 +29,9 @@ class PostgresConfig(BaseModel):
 
     def __repr__(self) -> str:
         attributes = self.dict(exclude={"url"})
+        attributes['url'] = self.async_url
+        attributes['async_url'] = self.async_url
+        attributes['sync_url'] = self.sync_url        
         attributes_str = json.dumps(attributes, indent=4)[1:-1]
         return f"{self.__class__.__name__}({attributes_str})"
 
