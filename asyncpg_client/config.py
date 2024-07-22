@@ -1,3 +1,17 @@
+import json
+from typing import Optional, Any, Type, TypeVar
+from pydantic import BaseModel, Field, ValidationError, validator
+from decouple import config, UndefinedValueError
+
+T = TypeVar('T')
+
+def env_var(field_name: str, default = None, cast_type = str) -> T:
+    try:
+        value = config(field_name, default=default)
+        return cast_type(value)
+    except Exception:
+        return default
+
 class PostgresConfig(BaseModel):
     host: Optional[str] = Field(default_factory=lambda: env_var("POSTGRES_HOST", "localhost", str))
     port: Optional[int] = Field(default_factory=lambda: env_var("POSTGRES_PORT", 5432, int))
