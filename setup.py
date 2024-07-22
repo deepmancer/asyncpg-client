@@ -35,6 +35,7 @@ setup(
     ],
     python_requires='>=3.6',
     project_urls={
+        "Documentation": "https://github.com/alirezaheidari-cs/asyncpg-client#readme",
         "Source": "https://github.com/alirezaheidari-cs/asyncpg-client",
         "Tracker": "https://github.com/alirezaheidari-cs/asyncpg-client/issues",
     },
