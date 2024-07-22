@@ -47,8 +47,8 @@ from asyncpg_client import AsyncPostgres
 
 async def main():
     pg_client = await AsyncPostgres.create(config=config)
-    print(pg_client).async_url
-    print(pg_client).sync_url
+    print(pg_client.async_url)
+    print(pg_client.sync_url)
 ```
 
 ## Using Database Sessions
