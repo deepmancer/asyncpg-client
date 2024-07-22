@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="asyncpg_client",
-    version="0.1.0",
+    version="0.2.0",
     description="Asyncpg Client is a simple and easy-to-use asyncpg client for Python 3.6+",
     author="Alireza Heidari",
     author_email="alirezaheidari.cs@gmail.com",
@@ -14,7 +14,8 @@ setup(
         "sqlalchemy",
         "psycopg2-binary",
         "SQLAlchemy==2.0.0b3",
-        
+        "python-decouple",
+        "pydantic",
     ],
     license='Apache License 2.0',
     keywords="postgres async-postgres asyncpg asyncpg-client sessionmaker",

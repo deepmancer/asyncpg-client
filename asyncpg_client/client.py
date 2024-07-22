@@ -6,17 +6,18 @@ from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
     async_sessionmaker,
-    create_async_engine
+    create_async_engine,
 )
 
 from .exceptions import PGConnectionError, PGSessionCreationError, PGEngineInitializationError
-
+from .config import PostgresConfig
 
 class AsyncPostgres:
     _instances: Dict[str, 'AsyncPostgres'] = {}
     _locks: Dict[str, threading.Lock] = {}
 
-    def __new__(cls, url: str, *args, **kwargs) -> 'AsyncPostgres':
+    def __new__(cls, config: PostgresConfig, *args, **kwargs) -> 'AsyncPostgres':
+        url = config.async_url
         if url not in cls._locks:
             cls._locks[url] = threading.Lock()
         with cls._locks[url]:
@@ -25,14 +26,43 @@ class AsyncPostgres:
                 cls._instances[url] = instance
             return cls._instances[url]
 
-    def __init__(self, url: str, echo: bool = False, expire_on_commit: bool = False):
+    def __init__(self, config: PostgresConfig) -> None:
         if not hasattr(self, 'initialized'):
-            self.url = url
-            self.echo = echo
-            self.expire_on_commit = expire_on_commit
+            self._config = config
             self._async_engine: Optional[AsyncEngine] = None
             self._async_session_maker: Optional[async_sessionmaker] = None
             self.initialized = True
+
+    @staticmethod
+    async def create(
+        url: Optional[str] = None,
+        host: Optional[str] = None,
+        user: Optional[str] = None,
+        password: Optional[str] = None,
+        database: Optional[str] = None,
+        port: Optional[int] = None,
+        echo: bool = False,
+        expire_on_commit: bool = False,
+        **kwargs,
+    ) -> 'AsyncPostgres':
+        config = PostgresConfig(
+            host=host,
+            port=port,
+            user=user,
+            password=password,
+            database=database,
+            url=url,
+            enable_db_echo_log=echo,
+            enable_db_expire_on_commit=expire_on_commit,
+            **kwargs
+        )
+        pg_client = AsyncPostgres(config)
+        await pg_client.connect()
+        return pg_client
+    
+    @property
+    def url(self) -> str:
+        return self._config.async_url
 
     async def init(self) -> None:
         if self._async_engine is None:
@@ -42,7 +72,7 @@ class AsyncPostgres:
     def _create_async_engine(self) -> AsyncEngine:
         return create_async_engine(
             url=self.url,
-            echo=self.echo,
+            echo=self._config.enable_db_echo_log,
         )
 
     def _create_async_session_maker(self) -> async_sessionmaker:
@@ -50,7 +80,7 @@ class AsyncPostgres:
             raise PGEngineInitializationError(url=self.url)
         return async_sessionmaker(
             bind=self._async_engine,
-            expire_on_commit=self.expire_on_commit,
+            expire_on_commit=self._config.enable_db_expire_on_commit,
             class_=AsyncSession,
         )
 
