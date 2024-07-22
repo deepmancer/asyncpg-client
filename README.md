@@ -1,8 +1,8 @@
 # asyncpg-client
 
-`asyncpg-client` is a Python package that provides an asynchronous PostgreSQL client using SQLAlchemy. It offers a singleton-based connection pooling mechanism, ensuring efficient and thread-safe database operations.
+`asyncpg-client` is a Python package that provides an asynchronous PostgreSQL client using SQLAlchemy. It also offers a singleton-based connection pooling mechanism, ensuring efficient and thread-safe database operations.
 
-## Features
+# Features
 
 - Asynchronous database connections using SQLAlchemy.
 - Singleton design pattern to manage database connections.
@@ -81,3 +81,5 @@ To gracefully disconnect from the database:
 await pg_client.disconnect()
 ```
 
+# License
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/alirezaheidari-cs/asyncpg-client/blob/main/LICENSE) file for more details.
