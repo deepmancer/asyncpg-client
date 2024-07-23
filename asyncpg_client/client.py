@@ -21,7 +21,11 @@ class AsyncPostgres:
         url = config.async_url
         if url not in cls._locks:
             cls._locks[url] = asyncio.Lock()
-        return cls._instances.get(url, None) or super().__new__(cls)
+        instance = cls._instances.get(url, None)
+        if instance is None:
+            instance = super().__new__(cls)
+            cls._instances[url] = instance
+        return instance
 
     def __init__(self, config: PostgresConfig) -> None:
         if not hasattr(self, '_initialized') or not self._initialized:
@@ -41,6 +45,7 @@ class AsyncPostgres:
 
         url = config.async_url
         if url not in cls._instances:
+            cls._locks[url] = asyncio.Lock()
             async with cls._locks[url]:
                 if url not in cls._instances:
                     pg_instance = cls(config)
