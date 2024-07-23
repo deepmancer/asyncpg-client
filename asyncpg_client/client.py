@@ -18,7 +18,7 @@ class AsyncPostgres:
     _locks: Dict[str, asyncio.Lock] = {}
 
     def __new__(cls, config: PostgresConfig, *args, **kwargs) -> 'AsyncPostgres':
-        url = config.async_url()
+        url = config.async_url
         if url not in cls._locks:
             cls._locks[url] = asyncio.Lock()
         return cls._instances.get(url, None) or super().__new__(cls)

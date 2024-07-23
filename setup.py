@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="asyncpg_client",
-    version="0.4.2",
+    version="0.4.3",
     description="Asyncpg Client is a simple and easy-to-use asyncpg client for Python 3.6+",
     author="Alireza Heidari",
     author_email="alirezaheidari.cs@gmail.com",
