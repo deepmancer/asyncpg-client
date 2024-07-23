@@ -18,14 +18,10 @@ class AsyncPostgres:
     _locks: Dict[str, asyncio.Lock] = {}
 
     def __new__(cls, config: PostgresConfig, *args, **kwargs) -> 'AsyncPostgres':
-        url = config.async_url
+        url = config.async_url()
         if url not in cls._locks:
             cls._locks[url] = asyncio.Lock()
-        instance = cls._instances.get(url, None)
-        if instance is None:
-            instance = super().__new__(cls)
-            cls._instances[url] = instance
-        return instance
+        return cls._instances.get(url, None) or super().__new__(cls)
 
     def __init__(self, config: PostgresConfig) -> None:
         if not hasattr(self, '_initialized') or not self._initialized:
