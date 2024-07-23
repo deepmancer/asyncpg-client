@@ -81,10 +81,14 @@ class AsyncPostgres:
     @contextlib.asynccontextmanager
     async def get_or_create_session(self) -> AsyncSession:
         await self.init()
+        if not self._async_session_maker:
+            raise PGSessionCreationError(url=self.url)
+
         async with self._async_session_maker() as session:
             try:
                 yield session
-                await session.commit()
+                if session.in_transaction():
+                    await session.commit()
             except SQLAlchemyError as e:
                 await session.rollback()
                 raise PGSessionCreationError(url=self.url, message=str(e))
