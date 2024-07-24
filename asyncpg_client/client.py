@@ -107,3 +107,7 @@ class AsyncPostgres:
         if self._async_engine:
             await self._async_engine.dispose()
             self._async_engine = None
+
+    async def reconnect(self) -> None:
+        await self.disconnect()
+        await self.connect()
