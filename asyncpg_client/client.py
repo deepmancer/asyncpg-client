@@ -37,6 +37,8 @@ class AsyncPostgres:
         if config is None:
             config = PostgresConfig(**kwargs)
         url: str = config.async_url
+        if url not in cls._locks:
+            cls._locks[url] = asyncio.Lock()
         async with cls._locks[url]:
             if url not in cls._instances:
                 instance = cls(config)
