@@ -1,39 +1,27 @@
 import json
-from typing import Optional, Any, TypeVar, Callable
+from typing import Optional
 
-from decouple import config, UndefinedValueError
+from decouple import config
 from pydantic import BaseModel, Field
 
-T = TypeVar('T')
-
-def env_var(field_name: str, default: Any = None, cast_type: Callable[[str], T] = str) -> T:
-    try:
-        value = config(field_name, default=default)
-        if value is None:
-            return default
-        return cast_type(value)
-    except UndefinedValueError:
-        return default
-    except (TypeError, ValueError) as e:
-        raise ValueError(f"Failed to cast environment variable {field_name} to {cast_type.__name__}") from e
 
 class PostgresConfig(BaseModel):
-    host: Optional[str] = Field(default_factory=lambda: env_var("POSTGRES_HOST", "localhost", str))
-    port: Optional[int] = Field(default_factory=lambda: env_var("POSTGRES_PORT", 5432, int))
-    user: Optional[str] = Field(default_factory=lambda: env_var("POSTGRES_USER", "postgres", str))
-    password: Optional[str] = Field(default_factory=lambda: env_var("POSTGRES_PASSWORD", "password", str))
-    database: Optional[str] = Field(default_factory=lambda: env_var("POSTGRES_DB", "database", str))
+    host: str = Field(default_factory=lambda: config("POSTGRES_HOST", "localhost"))
+    port: int = Field(default_factory=lambda: int(config("POSTGRES_PORT", 5432)))
+    user: str = Field(default_factory=lambda: config("POSTGRES_USER", "postgres"))
+    password: Optional[str] = Field(default_factory=lambda: config("POSTGRES_PASSWORD", "password"))
+    database: str = Field(default_factory=lambda: config("POSTGRES_DB", "database"))
+    timeout: int = Field(default_factory=lambda: int(config("TIMEOUT", 5)))
+    pool_size: int = Field(default_factory=lambda: int(config("POOL_SIZE", 100)))
+    max_pool_con: int = Field(default_factory=lambda: int(config("MAX_POOL_CON", 80)))
+    pool_overflow: int = Field(default_factory=lambda: int(config("POOL_OVERFLOW", 20)))
+    echo_log: bool = Field(default_factory=lambda: config("ECHO_LOG", False, cast=bool))
+    expire_on_commit: bool = Field(default_factory=lambda: config("EXPIRE_ON_COMMIT", True, cast=bool))
+    autoflush: bool = Field(default_factory=lambda: config("AUTO_FLUSH", True, cast=bool))
     url: Optional[str] = Field(default=None)
-    timeout: Optional[int] = Field(default_factory=lambda: env_var("TIMEOUT", 5, int))
-    pool_size: Optional[int] = Field(default_factory=lambda: env_var("POOL_SIZE", 100, int))
-    max_pool_con: Optional[int] = Field(default_factory=lambda: env_var("MAX_POOL_CON", 80, int))
-    pool_overflow: Optional[int] = Field(default_factory=lambda: env_var("POOL_OVERFLOW", 20, int))
-    echo_log: Optional[bool] = Field(default_factory=lambda: env_var("ECHO_LOG", False, bool))
-    expire_on_commit: Optional[bool] = Field(default_factory=lambda: env_var("EXPIRE_ON_COMMIT", True, bool))
-    autoflush: Optional[bool] = Field(default_factory=lambda: env_var("AUTO_FLUSH", True, bool))
 
     def __repr__(self) -> str:
-        attributes = self.dict(exclude={"url"})
+        attributes = self.model_dump(exclude={"url"})
         attributes['async_url'] = self.async_url
         attributes['sync_url'] = self.sync_url        
         attributes_str = json.dumps(attributes, indent=4)[1:-1]
