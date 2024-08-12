@@ -1,17 +1,18 @@
-import contextlib
 import asyncio
+import contextlib
 from typing import Dict, Optional, AsyncIterator
 
-from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine,
-)
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.ext.asyncio import (
+        AsyncEngine,
+        AsyncSession,
+        async_sessionmaker,
+        create_async_engine,
+)
 
-from .exceptions import PGConnectionError, PGSessionCreationError, PGEngineInitializationError
 from .config import PostgresConfig
+from .exceptions import PGConnectionError, PGSessionCreationError, PGEngineInitializationError
+
 
 class AsyncPostgres:
     _instances: Dict[str, 'AsyncPostgres'] = {}

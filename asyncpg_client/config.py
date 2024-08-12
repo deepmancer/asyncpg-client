@@ -1,8 +1,8 @@
 import json
-from typing import Optional, Any, Type, TypeVar, Callable
+from typing import Optional, Any, TypeVar, Callable
 
 from decouple import config, UndefinedValueError
-from pydantic import BaseModel, Field, ValidationError, validator
+from pydantic import BaseModel, Field
 
 T = TypeVar('T')
 
