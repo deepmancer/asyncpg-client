@@ -6,7 +6,7 @@ setup(
     description="Asyncpg Client is a simple and easy-to-use asyncpg client for Python 3.6+",
     author="Alireza Heidari",
     author_email="alirezaheidari.cs@gmail.com",
-    url="https://github.com/alirezaheidari-cs/asyncpg-client",
+    url="https://github.com/deepmancer/asyncpg-client",
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -35,8 +35,8 @@ setup(
     ],
     python_requires='>=3.6',
     project_urls={
-        "Documentation": "https://github.com/alirezaheidari-cs/asyncpg-client#readme",
-        "Source": "https://github.com/alirezaheidari-cs/asyncpg-client",
-        "Tracker": "https://github.com/alirezaheidari-cs/asyncpg-client/issues",
+        "Documentation": "https://github.com/deepmancer/asyncpg-client#readme",
+        "Source": "https://github.com/deepmancer/asyncpg-client",
+        "Tracker": "https://github.com/deepmancer/asyncpg-client/issues",
     },
 )

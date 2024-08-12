@@ -14,7 +14,7 @@
 To install `asyncpg-client`, use pip:
 
 ```sh
-pip install git+https://github.com/alirezaheidari-cs/asyncpg-client.git
+pip install git+https://github.com/deepmancer/asyncpg-client.git
 ```
 # Usage
 
@@ -82,4 +82,4 @@ await pg_client.disconnect()
 ```
 
 # License
-This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/alirezaheidari-cs/asyncpg-client/blob/main/LICENSE) file for more details.
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/deepmancer/asyncpg-client/blob/main/LICENSE) file for more details.
