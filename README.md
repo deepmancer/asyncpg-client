@@ -1,4 +1,4 @@
-# Async Postgres Client
+# 📚 Async Postgres Client
 
 <p align="center">
     <img src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white" alt="PostgreSQL">
@@ -8,31 +8,30 @@
     <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
 </p>
 
-`asyncpg-client` is a Python package that provides an asynchronous PostgreSQL client using SQLAlchemy. It also offers a singleton-based connection pooling mechanism, ensuring efficient and thread-safe database operations.
+**`asyncpg-client`** is a powerful Python package designed for seamless asynchronous interactions with PostgreSQL, leveraging SQLAlchemy. It ensures efficient, thread-safe operations with its singleton-based connection pooling mechanism, making database management easier and faster.
 
 ---
 
-# Features
+## ✨ Features
 
-- Asynchronous database connections using SQLAlchemy.
-- Singleton design pattern to manage database connections.
-- Context manager support for database sessions.
-- Easy configuration using `PostgresConfig`.
+- ⚡ **Asynchronous Operations**: Asynchronous database connections using SQLAlchemy for high performance.
+- 🛠️ **Singleton Pattern**: Efficiently manage database connections using a singleton design.
+- 🔄 **Context Manager Support**: Simplify database session management with context managers.
+- 🔧 **Easy Configuration**: Configure your database effortlessly with `PostgresConfig`.
 
-## Installation
+## 📦 Installation
 
-To install `asyncpg-client`, use pip:
+Get started quickly by installing `asyncpg-client` with pip:
 
 ```sh
 pip install git+https://github.com/deepmancer/asyncpg-client.git
 ```
-# Usage
 
-Here's a basic example of how to use the `AsyncPostgres` class in your project:
+## 📝 Usage Guide
 
-## Configuration
+### 🔧 Configuration
 
-First, create a configuration object using `PostgresConfig`:
+Start by creating a configuration object with `PostgresConfig`:
 
 ```python
 from asyncpg_client import PostgresConfig
@@ -49,8 +48,9 @@ config = PostgresConfig(
 )
 ```
 
-## Creating an AsyncPostgres Instance
-You can create an instance of AsyncPostgres using the configuration:
+### 🏗️ Creating an AsyncPostgres Instance
+
+Next, create an instance of `AsyncPostgres` using your configuration:
 
 ```python
 from asyncpg_client import AsyncPostgres
@@ -61,8 +61,9 @@ async def main():
     print(pg_client.sync_url)
 ```
 
-## Using Database Sessions
-To interact with the database, use the context manager provided by get_or_create_session:
+### ⚙️ Managing Database Sessions
+
+Interact with your PostgreSQL database using the context manager from `get_or_create_session`:
 
 ```python
 from asyncpg_client import AsyncPostgres
@@ -71,25 +72,56 @@ async def main():
     pg_client = await AsyncPostgres.create(config=config)
 
     async with pg_client.get_or_create_session() as session:
-        # Use `session` to interact with your database
+        # Interact with your database here
         pass
 
     await pg_client.disconnect()
 ```
 
-## Error Handling
-The package provides custom exceptions to handle various database-related errors:
+### 🔍 Example Usage
+
+Here's a basic example to demonstrate how `asyncpg-client` works:
+
+```python
+import asyncio
+from asyncpg_client import AsyncPostgres, PostgresConfig
+
+async def main():
+    config = PostgresConfig(
+        host='localhost',
+        port=5432,
+        user='your_user',
+        password='your_password',
+        database='your_database'
+    )
+    pg_client = await AsyncPostgres.create(config=config)
+
+    async with pg_client.get_or_create_session() as session:
+        # Perform your database operations here
+        pass
+
+    await pg_client.disconnect()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+### 🛡️ Error Handling
+
+Handle various database-related errors gracefully with custom exceptions:
 
 - `PGConnectionError`
 - `PGSessionCreationError`
 - `PGEngineInitializationError`
 
-## Disconnecting
-To gracefully disconnect from the database:
+### 🛑 Disconnecting
+
+Ensure a clean disconnect from your PostgreSQL database:
 
 ```python
 await pg_client.disconnect()
 ```
 
-# License
-This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/deepmancer/asyncpg-client/blob/main/LICENSE) file for more details.
+## 📄 License
+
+This project is licensed under the Apache License 2.0. See the [LICENSE](https://github.com/deepmancer/asyncpg-client/blob/main/LICENSE) file for full details.
