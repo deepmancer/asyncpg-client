@@ -1,6 +1,16 @@
-# asyncpg-client
+# Async Postgres Client
+
+<p align="center">
+    <img src="https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=PostgreSQL&logoColor=white" alt="PostgreSQL">
+    <img src="https://img.shields.io/badge/SQLAlchemy-D71F00.svg?style=for-the-badge&logo=SQLAlchemy&logoColor=white" alt="SQLAlchemy">
+    <img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=for-the-badge&logo=Pydantic&logoColor=white" alt="Pydantic">
+    <img src="https://img.shields.io/badge/PyPI-3775A9.svg?style=for-the-badge&logo=PyPI&logoColor=white" alt="PyPI">
+    <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
+</p>
 
 `asyncpg-client` is a Python package that provides an asynchronous PostgreSQL client using SQLAlchemy. It also offers a singleton-based connection pooling mechanism, ensuring efficient and thread-safe database operations.
+
+---
 
 # Features
 
