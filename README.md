@@ -6,9 +6,16 @@
     <img src="https://img.shields.io/badge/Pydantic-E92063.svg?style=for-the-badge&logo=Pydantic&logoColor=white" alt="Pydantic">
     <img src="https://img.shields.io/badge/PyPI-3775A9.svg?style=for-the-badge&logo=PyPI&logoColor=white" alt="PyPI">
     <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
+    <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=for-the-badge" alt="License">
 </p>
 
 **`asyncpg-client`** is a powerful Python package designed for seamless asynchronous interactions with PostgreSQL, leveraging SQLAlchemy. It ensures efficient, thread-safe operations with its singleton-based connection pooling mechanism, making database management easier and faster.
+
+---
+
+| **Source Code** | **Website** |
+|:-----------------|:------------|
+| <a href="https://github.com/deepmancer/asyncpg-client" target="_blank">github.com/deepmancer/asyncpg-client</a> | <a href="https://deepmancer.github.io/asyncpg-client/" target="_blank">deepmancer.github.io/asyncpg-client</a> |
 
 ---
 
